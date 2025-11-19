@@ -7,7 +7,6 @@
     <link rel="stylesheet" href="styles.css">
 </head>
 <body>
-    <!-- Header -->
     <header class="header">
         <div class="header-content">
             <div class="header-left">
@@ -29,9 +28,7 @@
         </div>
     </header>
 
-    <!-- Main Content -->
     <main class="container">
-        <!-- Stats Cards -->
         <div class="stats-grid">
             <div class="stat-card">
                 <div class="stat-content">
@@ -77,17 +74,14 @@
             </div>
         </div>
 
-        <!-- Filter Tabs -->
         <div class="tabs">
             <button class="tab active" data-filter="in-progress" onclick="setFilter('in-progress')">Dalam Progress</button>
             <button class="tab" data-filter="completed" onclick="setFilter('completed')">Tercapai</button>
             <button class="tab" data-filter="all" onclick="setFilter('all')">Semua</button>
         </div>
 
-        <!-- Goals Grid -->
         <div id="goalsGrid" class="goals-grid"></div>
 
-        <!-- Empty State -->
         <div id="emptyState" class="empty-state" style="display: none;">
             <div class="empty-icon">
                 <svg width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
@@ -102,7 +96,6 @@
         </div>
     </main>
 
-    <!-- Add/Edit Goal Modal -->
     <div id="addModal" class="modal">
         <div class="modal-content">
             <div class="modal-header">
@@ -117,11 +110,11 @@
                 <div class="form-row">
                     <div class="form-group">
                         <label>Target Tabungan (Rp)</label>
-                        <input type="number" id="targetAmount" placeholder="25000000">
+                        <input type="number" id="targetAmount" placeholder="Rp. 25.000.000">
                     </div>
                     <div class="form-group">
                         <label>Jumlah Iuran (Rp)</label>
-                        <input type="number" id="contributionAmount" placeholder="500000">
+                        <input type="number" id="contributionAmount" placeholder="Rp. 500.000">
                     </div>
                 </div>
                 <div class="form-group">
@@ -151,7 +144,6 @@
         </div>
     </div>
 
-    <!-- Goal Detail Modal -->
     <div id="detailModal" class="modal">
         <div class="modal-content modal-large">
             <div class="modal-header">
@@ -227,7 +219,6 @@
         </div>
     </div>
 
-    <!-- Transaction Modal -->
     <div id="transactionModal" class="modal">
         <div class="modal-content modal-small">
             <div class="modal-header">
@@ -251,7 +242,6 @@
         </div>
     </div>
 
-    <!-- Toast Notification -->
     <div id="toast" class="toast"></div>
 
     <script src="script.js"></script>

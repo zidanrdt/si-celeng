@@ -11,7 +11,6 @@ body {
     min-height: 100vh;
 }
 
-/* Header */
 .header {
     background: white;
     border-bottom: 1px solid #d1fae5;
@@ -71,7 +70,6 @@ body {
     padding: 2rem 1.5rem;
 }
 
-/* Stats Grid */
 .stats-grid {
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
@@ -126,7 +124,6 @@ body {
 .stat-icon-teal { background: #ccfbf1; color: #14b8a6; }
 .stat-icon-cyan { background: #cffafe; color: #06b6d4; }
 
-/* Tabs */
 .tabs {
     display: flex;
     gap: 0.5rem;
@@ -159,7 +156,6 @@ body {
     color: #047857;
 }
 
-/* Goals Grid */
 .goals-grid {
     display: grid;
     grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
@@ -209,11 +205,6 @@ body {
     font-weight: 600;
     box-shadow: 0 2px 4px rgba(0,0,0,0.1);
 }
-
-/* .goal-badge.completed {
-    background: #10b981;
-    color: white;
-} */
 
 .goal-content {
     padding: 1.25rem;
@@ -265,7 +256,6 @@ body {
     color: #6b7280;
 }
 
-/* Empty State */
 .empty-state {
     text-align: center;
     padding: 5rem 2rem;
@@ -294,7 +284,6 @@ body {
     margin-bottom: 1.5rem;
 }
 
-/* Buttons */
 .btn {
     padding: 0.75rem 1.5rem;
     border: none;
@@ -371,7 +360,6 @@ body {
     color: #111827;
 }
 
-/* Modal */
 .modal {
     display: none;
     position: fixed;
@@ -489,7 +477,6 @@ body {
     min-height: 80px;
 }
 
-/* Frequency Tabs */
 .frequency-tabs {
     display: grid;
     grid-template-columns: repeat(3, 1fr);
@@ -517,7 +504,6 @@ body {
     border-color: #10b981;
 }
 
-/* Image Tabs */
 .image-tabs {
     display: grid;
     grid-template-columns: 1fr 1fr;
@@ -550,7 +536,6 @@ body {
     border-color: #10b981;
 }
 
-/* Category Filters */
 .category-filters {
     display: flex;
     gap: 0.5rem;
@@ -578,7 +563,6 @@ body {
     border-color: #10b981;
 }
 
-/* Stock Images Grid */
 .stock-images-grid {
     display: grid;
     grid-template-columns: repeat(3, 1fr);
@@ -612,7 +596,6 @@ body {
     object-fit: cover;
 }
 
-/* Upload Area */
 .upload-area {
     border: 2px dashed #d1d5db;
     border-radius: 0.75rem;
@@ -673,7 +656,6 @@ body {
     background: #dc2626;
 }
 
-/* Goal Detail */
 .detail-image-wrapper {
     position: relative;
     height: 300px;
@@ -838,7 +820,6 @@ body {
 .transaction-amount.add { color: #10b981; }
 .transaction-amount.subtract { color: #f59e0b; }
 
-/* Toast */
 .toast {
     position: fixed;
     bottom: 2rem;
@@ -859,7 +840,6 @@ body {
     opacity: 1;
 }
 
-/* Responsive */
 @media (max-width: 768px) {
     .header-content {
         flex-direction: column;

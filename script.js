@@ -1,10 +1,27 @@
-// Modal and Tab Logic for Si Celeng
+// Remove any formatting on input fields (ensure type=number and no formatting applied)
+document.addEventListener('DOMContentLoaded', function() {
+	const targetInput = document.getElementById('targetAmount');
+	const contributionInput = document.getElementById('contributionAmount');
+	if (targetInput) {
+		targetInput.addEventListener('input', function(e) {
+			// Only allow numbers
+			this.value = this.value.replace(/[^\d]/g, '');
+		});
+	}
+	if (contributionInput) {
+		contributionInput.addEventListener('input', function(e) {
+			this.value = this.value.replace(/[^\d]/g, '');
+		});
+	}
+});
+function formatRupiah(number) {
+	return 'Rp ' + Number(number).toLocaleString('id-ID');
+}
 let currentFilter = 'in-progress';
 let currentImageTab = 'stock';
 let currentCategory = 'Elektronik';
 let currentFrequency = 'weekly';
 
-// --- Modal Functions ---
 function openAddModal() {
 	document.getElementById('addModal').classList.add('active');
 	document.body.style.overflow = 'hidden';
@@ -28,7 +45,6 @@ function closeDetailModal() {
 function openTransactionModal(type) {
 	document.getElementById('transactionModal').classList.add('active');
 	document.body.style.overflow = 'hidden';
-	// Set title based on type
 	document.getElementById('transactionTitle').textContent = type === 'add' ? 'Tambah Tabungan' : 'Kurangi Tabungan';
 }
 
@@ -37,14 +53,12 @@ function closeTransactionModal() {
 	document.body.style.overflow = '';
 }
 
-// --- Tab Switching ---
+// switch tab
 function setFilter(filter) {
 	currentFilter = filter;
-	// Update tab active state
 	document.querySelectorAll('.tab').forEach(tab => {
 		tab.classList.toggle('active', tab.getAttribute('data-filter') === filter);
 	});
-	// TODO: Update goals grid based on filter
 }
 
 function setFrequency(freq) {
@@ -68,10 +82,8 @@ function setCategory(category) {
 	document.querySelectorAll('.category-btn').forEach(btn => {
 		btn.classList.toggle('active', btn.textContent.trim() === category);
 	});
-	// TODO: Update stock images based on category
 }
 
-// --- Image Upload (stub) ---
 function handleImageUpload(event) {
 	const file = event.target.files[0];
 	if (!file) return;
@@ -89,27 +101,35 @@ function removeUploadedImage() {
 	document.getElementById('imageUpload').value = '';
 }
 
-// --- Save Goal (stub) ---
 function saveGoal() {
-	// TODO: Implement save logic
+	// Ambil nilai input sebagai angka
+	const targetAmount = Number(document.getElementById('targetAmount').value);
+	const contributionAmount = Number(document.getElementById('contributionAmount').value);
+	// Validasi input
+	if (isNaN(targetAmount) || targetAmount <= 0) {
+		showToast('Masukkan target tabungan yang valid!');
+		return;
+	}
+	if (isNaN(contributionAmount) || contributionAmount <= 0) {
+		showToast('Masukkan jumlah iuran yang valid!');
+		return;
+	}
+	// Simpan ke localstorage atau array (dummy)
+	// ...
 	closeAddModal();
 	showToast('Target berhasil disimpan!');
 }
 
-// --- Edit Goal (stub) ---
 function editGoal() {
-	// TODO: Implement edit logic
+	// implementasi logic
 	openAddModal();
 }
-
-// --- Save Transaction (stub) ---
 function saveTransaction() {
-	// TODO: Implement transaction logic
+	// transisi logic
 	closeTransactionModal();
 	showToast('Transaksi berhasil disimpan!');
 }
 
-// --- Toast Notification ---
 function showToast(message) {
 	const toast = document.getElementById('toast');
 	toast.textContent = message;
@@ -119,9 +139,7 @@ function showToast(message) {
 	}, 2500);
 }
 
-// --- Initial Setup ---
 window.addEventListener('DOMContentLoaded', () => {
-	// Ensure correct tab and modal state on load
 	setFilter(currentFilter);
 	setFrequency(currentFrequency);
 	setImageTab(currentImageTab);
