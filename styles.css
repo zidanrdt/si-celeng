@@ -156,8 +156,8 @@ body {
 }
 
 .tab.active {
-    background: #d1fae5;
-    color: #047857;
+    background: #9c7a53;
+    color: white;
 }
 
 /* Goals Grid */
@@ -513,9 +513,9 @@ body {
 }
 
 .freq-tab.active {
-    background: #10b981;
+    background: #C19A6B;
     color: white;
-    border-color: #10b981;
+    border-color: #C19A6B;
 }
 
 /* Image Tabs */
@@ -547,7 +547,7 @@ body {
 
 .img-tab.active {
     background: #d1fae5;
-    color: #047857;
+    color: white;
     border-color: #10b981;
 }
 
