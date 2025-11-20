@@ -13,18 +13,23 @@ body {
 
 /* Header */
 .header {
-    background: #cec8af;
-    border-bottom: 1px solid #aea996;
+    /* background: #cec8af; */
+    background: rgba(206, 200, 175, 0.5);
+    border-bottom: 1px solid rgb(206, 200, 175);
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
     box-shadow: 0 1px 3px rgba(0,0,0,0.1);
     position: sticky;
-    top: 0;
+    top: 1rem;
     z-index: 100;
+    margin: 1rem 1rem 0 1rem;
+    border-radius: 15px;
 }
 
 .header-content {
     max-width: 1200px;
     margin: 0 auto;
-    padding: 1rem 1.5rem;
+    padding: .6rem 1.5rem;
     display: flex;
     justify-content: space-between;
     align-items: center;
@@ -132,7 +137,9 @@ body {
     display: flex;
     gap: 0.5rem;
     background: white;
-    padding: 0.5rem;
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+    padding: 0.3rem;
     border-radius: 0.75rem;
     box-shadow: 0 2px 4px rgba(0,0,0,0.1);
     margin-bottom: 1.5rem;
@@ -147,7 +154,7 @@ body {
     font-size: 0.875rem;
     font-weight: 500;
     cursor: pointer;
-    transition: all 0.2s ease;
+    transition: all 0.2s ease ease-in-out;
     color: #6b7280;
 }
 
@@ -257,7 +264,7 @@ body {
 
 .progress-fill {
     height: 100%;
-    background: linear-gradient(90deg, #10b981 0%, #14b8a6 100%);
+    background: linear-gradient(23deg,rgba(92, 46, 32, 1) 44%, rgba(107, 56, 42, 1) 82%);
     transition: width 0.3s ease;
 }
 
