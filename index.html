@@ -3,10 +3,11 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Si Celeng</title>
+    <title>Si Celeng - Wujudkan Impianmu</title>
     <link rel="stylesheet" href="styles.css">
 </head>
 <body>
+    <!-- Header -->
     <header class="header">
         <div class="header-content">
             <div class="header-left">
@@ -15,20 +16,22 @@
                 </div>
                 <div class="header-text">
                     <h1>Si Celeng</h1>
-                    <p>Wujudkan Impian</p>
+                    <p style="color: whitesmoke;">Wujudkan Impianmu</p>
                 </div>
             </div>
             <button class="btn btn-primary" onclick="openAddModal()">
-                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                        <line x1="12" y1="5" x2="12" y2="19"></line>
-                        <line x1="5" y1="12" x2="19" y2="12"></line>
-                    </svg>
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <line x1="12" y1="5" x2="12" y2="19"></line>
+                    <line x1="5" y1="12" x2="19" y2="12"></line>
+                </svg>
                 Tambah Target
             </button>
         </div>
     </header>
 
+    <!-- Main Content -->
     <main class="container">
+        <!-- Stats Cards -->
         <div class="stats-grid">
             <div class="stat-card">
                 <div class="stat-content">
@@ -74,14 +77,17 @@
             </div>
         </div>
 
+        <!-- Filter Tabs -->
         <div class="tabs">
             <button class="tab active" data-filter="in-progress" onclick="setFilter('in-progress')">Dalam Progress</button>
             <button class="tab" data-filter="completed" onclick="setFilter('completed')">Tercapai</button>
             <button class="tab" data-filter="all" onclick="setFilter('all')">Semua</button>
         </div>
 
+        <!-- Goals Grid -->
         <div id="goalsGrid" class="goals-grid"></div>
 
+        <!-- Empty State -->
         <div id="emptyState" class="empty-state" style="display: none;">
             <div class="empty-icon">
                 <svg width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
@@ -96,6 +102,7 @@
         </div>
     </main>
 
+    <!-- Add/Edit Goal Modal -->
     <div id="addModal" class="modal">
         <div class="modal-content">
             <div class="modal-header">
@@ -118,7 +125,7 @@
                     </div>
                 </div>
                 <div class="form-group">
-                    <label>Frekuensi Iuran</label>
+                    <label>Iuran</label>
                     <div class="frequency-tabs">
                         <button class="freq-tab" data-freq="daily" onclick="setFrequency('daily')">Harian</button>
                         <button class="freq-tab active" data-freq="weekly" onclick="setFrequency('weekly')">Mingguan</button>
@@ -126,15 +133,37 @@
                     </div>
                 </div>
                 <div class="form-group">
-                    <label>Pilih Gambar</label>
-                    <div class="category-filters">
-                        <button class="category-btn active" onclick="setCategory('Elektronik')">Elektronik</button>
-                        <button class="category-btn" onclick="setCategory('Fashion')">Fashion</button>
-                        <button class="category-btn" onclick="setCategory('Kendaraan')">Kendaraan</button>
-                        <button class="category-btn" onclick="setCategory('Properti')">Properti</button>
-                        <button class="category-btn" onclick="setCategory('Liburan')">Liburan</button>
+                    <label>Target Tabungan</label>
+                    <div class="image-tabs">
+                        <button class="img-tab active" onclick="setImageTab('stock')">Rekomendasi Gambar</button>
+                        <button class="img-tab" onclick="setImageTab('upload')">Upload Gambar</button>
                     </div>
-                    <div id="stockImages" class="stock-images-grid"></div>
+                    <div id="stockTab" class="image-tab-content">
+                        <div class="category-filters">
+                            <button class="category-btn active" onclick="setCategory('Elektronik')">Elektronik</button>
+                            <button class="category-btn" onclick="setCategory('Fashion')">Fashion</button>
+                            <button class="category-btn" onclick="setCategory('Kendaraan')">Kendaraan</button>
+                            <button class="category-btn" onclick="setCategory('Properti')">Properti</button>
+                            <button class="category-btn" onclick="setCategory('Liburan')">Liburan</button>
+                        </div>
+                        <div id="stockImages" class="stock-images-grid"></div>
+                    </div>
+                    <div id="uploadTab" class="image-tab-content" style="display: none;">
+                        <div class="upload-area" onclick="document.getElementById('imageUpload').click()">
+                            <svg width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path>
+                                <polyline points="17 8 12 3 7 8"></polyline>
+                                <line x1="12" y1="3" x2="12" y2="15"></line>
+                            </svg>
+                            <p>Klik untuk upload gambar</p>
+                            <small>PNG, JPG hingga 10MB</small>
+                        </div>
+                        <input type="file" id="imageUpload" accept="image/*" style="display: none;" onchange="handleImageUpload(event)">
+                        <div id="uploadPreview" style="display: none;">
+                            <img id="previewImage" src="" alt="Preview">
+                            <button class="btn-remove" onclick="removeUploadedImage()">&times;</button>
+                        </div>
+                    </div>
                 </div>
             </div>
             <div class="modal-footer">
@@ -144,6 +173,7 @@
         </div>
     </div>
 
+    <!-- Goal Detail Modal -->
     <div id="detailModal" class="modal">
         <div class="modal-content modal-large">
             <div class="modal-header">
@@ -219,6 +249,7 @@
         </div>
     </div>
 
+    <!-- Transaction Modal -->
     <div id="transactionModal" class="modal">
         <div class="modal-content modal-small">
             <div class="modal-header">
@@ -242,6 +273,7 @@
         </div>
     </div>
 
+    <!-- Toast Notification -->
     <div id="toast" class="toast"></div>
 
     <script src="script.js"></script>
