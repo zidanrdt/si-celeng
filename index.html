@@ -3,20 +3,20 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Si Celeng - Wujudkan Impianmu</title>
+    <title>Si Celeng</title>
     <link rel="stylesheet" href="styles.css">
+    <link rel="icon" type="image/png" sizes="32x32" href="assets/logo.png">
 </head>
 <body>
-    <!-- Header -->
     <header class="header">
         <div class="header-content">
             <div class="header-left">
-                <div class="logoo">
-                    <img src="assets/logo2.png" alt="">
+                <div class="logo">
+                    <img src="assets/logo.png" alt="">
                 </div>
                 <div class="header-text">
                     <h1>Si Celeng</h1>
-                    <p style="color: whitesmoke;">Wujudkan Impianmu</p>
+                    <p>Uangmu, Masadepanmu</p>
                 </div>
             </div>
             <button class="btn btn-primary" onclick="openAddModal()">
@@ -29,9 +29,7 @@
         </div>
     </header>
 
-    <!-- Main Content -->
     <main class="container">
-        <!-- Stats Cards -->
         <div class="stats-grid">
             <div class="stat-card">
                 <div class="stat-content">
@@ -40,9 +38,7 @@
                         <p class="stat-value stat-value-emerald" id="totalSaved">Rp 0</p>
                     </div>
                     <div class="stat-icon stat-icon-emerald">
-                        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                            <polyline points="22 12 18 12 15 21 9 3 6 12 2 12"></polyline>
-                        </svg>
+                        <svg width="24px" height="24px" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-dollar-sign"><line x1="12" y1="1" x2="12" y2="23"></line><path d="M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"></path></svg>
                     </div>
                 </div>
             </div>
@@ -77,17 +73,14 @@
             </div>
         </div>
 
-        <!-- Filter Tabs -->
         <div class="tabs">
             <button class="tab active" data-filter="in-progress" onclick="setFilter('in-progress')">Dalam Progress</button>
             <button class="tab" data-filter="completed" onclick="setFilter('completed')">Tercapai</button>
             <button class="tab" data-filter="all" onclick="setFilter('all')">Semua</button>
         </div>
 
-        <!-- Goals Grid -->
         <div id="goalsGrid" class="goals-grid"></div>
 
-        <!-- Empty State -->
         <div id="emptyState" class="empty-state" style="display: none;">
             <div class="empty-icon">
                 <svg width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
@@ -102,7 +95,6 @@
         </div>
     </main>
 
-    <!-- Add/Edit Goal Modal -->
     <div id="addModal" class="modal">
         <div class="modal-content">
             <div class="modal-header">
@@ -156,7 +148,7 @@
                                 <line x1="12" y1="3" x2="12" y2="15"></line>
                             </svg>
                             <p>Klik untuk upload gambar</p>
-                            <small>PNG, JPG hingga 10MB</small>
+                            <small>PNG, JPG hingga 1MB</small>
                         </div>
                         <input type="file" id="imageUpload" accept="image/*" style="display: none;" onchange="handleImageUpload(event)">
                         <div id="uploadPreview" style="display: none;">
@@ -173,7 +165,6 @@
         </div>
     </div>
 
-    <!-- Goal Detail Modal -->
     <div id="detailModal" class="modal">
         <div class="modal-content modal-large">
             <div class="modal-header">
@@ -249,7 +240,6 @@
         </div>
     </div>
 
-    <!-- Transaction Modal -->
     <div id="transactionModal" class="modal">
         <div class="modal-content modal-small">
             <div class="modal-header">
@@ -273,8 +263,13 @@
         </div>
     </div>
 
-    <!-- Toast Notification -->
     <div id="toast" class="toast"></div>
+
+    <div class="card-info">
+        <div class="card-info-content">
+            
+        </div>
+    </div>
 
     <script src="script.js"></script>
 </body>

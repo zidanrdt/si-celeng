@@ -1,50 +1,6 @@
 // Mock data
 const mockGoals = [
-    {
-        id: '1',
-        name: 'iPad Pro',
-        targetAmount: 25000000,
-        savedAmount: 250000,
-        imageUrl: 'https://images.unsplash.com/photo-1544244015-0df4b3ffc6b0?w=800',
-        frequency: 'weekly',
-        contributionAmount: 125000,
-        createdDate: '2025-01-15',
-        status: 'in-progress',
-        transactions: [
-            { id: 't1', amount: 125000, type: 'add', date: '2025-01-15T10:00:00', description: 'Tabungan minggu pertama' },
-            { id: 't2', amount: 125000, type: 'add', date: '2025-01-22T10:00:00', description: 'Tabungan minggu kedua' }
-        ]
-    },
-    {
-        id: '2',
-        name: 'Laptop Gaming',
-        targetAmount: 15000000,
-        savedAmount: 3000000,
-        imageUrl: 'https://images.unsplash.com/photo-1603302576837-37561b2e2302?w=800',
-        frequency: 'monthly',
-        contributionAmount: 500000,
-        createdDate: '2024-12-01',
-        status: 'in-progress',
-        transactions: [
-            { id: 't3', amount: 500000, type: 'add', date: '2024-12-01T10:00:00', description: 'Bulan Desember' },
-            { id: 't4', amount: 500000, type: 'add', date: '2025-01-01T10:00:00', description: 'Bulan Januari' }
-        ]
-    },
-    {
-        id: '3',
-        name: 'Smartphone Baru',
-        targetAmount: 8000000,
-        savedAmount: 8000000,
-        imageUrl: 'https://images.unsplash.com/photo-1511707171634-5f897ff02aa9?w=800',
-        frequency: 'daily',
-        contributionAmount: 50000,
-        createdDate: '2024-10-01',
-        status: 'completed',
-        transactions: [
-            { id: 't5', amount: 4000000, type: 'add', date: '2024-10-01T10:00:00', description: 'Tabungan awal' },
-            { id: 't6', amount: 4000000, type: 'add', date: '2024-12-15T10:00:00', description: 'Bonus kantor' }
-        ]
-    }
+    
 ];
 
 const stockImages = [
@@ -112,7 +68,6 @@ function showToast(message) {
     }, 3000);
 }
 
-// LocalStorage functions
 function getGoalsFromStorage() {
     const stored = localStorage.getItem('siCelengGoals');
     return stored ? JSON.parse(stored) : mockGoals;
@@ -122,7 +77,6 @@ function saveGoalsToStorage(goals) {
     localStorage.setItem('siCelengGoals', JSON.stringify(goals));
 }
 
-// Initialize
 function init() {
     goals = getGoalsFromStorage();
     updateStats();
@@ -130,7 +84,6 @@ function init() {
     renderStockImages();
 }
 
-// Update statistics
 function updateStats() {
     const totalSaved = goals.reduce((sum, goal) => sum + goal.savedAmount, 0);
     const totalTarget = goals.reduce((sum, goal) => sum + goal.targetAmount, 0);
@@ -141,7 +94,6 @@ function updateStats() {
     document.getElementById('completedGoals').textContent = completedGoals;
 }
 
-// Filter tabs
 function setFilter(filter) {
     currentFilter = filter;
     document.querySelectorAll('.tab').forEach(tab => {
@@ -153,7 +105,6 @@ function setFilter(filter) {
     renderGoals();
 }
 
-// Render goals grid
 function renderGoals() {
     const filteredGoals = goals.filter(goal => 
         currentFilter === 'all' ? true : goal.status === currentFilter
@@ -202,7 +153,6 @@ function renderGoals() {
     }
 }
 
-// Modal functions
 function openAddModal() {
     editingGoalId = null;
     document.getElementById('modalTitle').textContent = 'Tambah Target Baru';
@@ -212,7 +162,6 @@ function openAddModal() {
     selectedFrequency = 'weekly';
     selectedImageUrl = '';
     
-    // Reset frequency tabs
     document.querySelectorAll('.freq-tab').forEach(tab => {
         tab.classList.remove('active');
         if (tab.dataset.freq === 'weekly') {
@@ -220,7 +169,6 @@ function openAddModal() {
         }
     });
     
-    // Reset image selection
     document.querySelectorAll('.stock-image').forEach(img => {
         img.classList.remove('selected');
     });
@@ -310,7 +258,6 @@ function saveGoal() {
     const targetAmount = parseFloat(document.getElementById('targetAmount').value);
     const contributionAmount = parseFloat(document.getElementById('contributionAmount').value);
 
-    // Validation
     if (!name) {
         showToast('Nama target harus diisi');
         return;
@@ -329,7 +276,6 @@ function saveGoal() {
     }
 
     if (editingGoalId) {
-        // Update existing goal
         const goalIndex = goals.findIndex(g => g.id === editingGoalId);
         if (goalIndex !== -1) {
             goals[goalIndex] = {
@@ -343,7 +289,6 @@ function saveGoal() {
             showToast('Target berhasil diperbarui');
         }
     } else {
-        // Create new goal
         const newGoal = {
             id: Date.now().toString(),
             name,
@@ -366,7 +311,6 @@ function saveGoal() {
     closeAddModal();
 }
 
-// Goal Detail Modal
 function openDetailModal(goalId) {
     currentGoalId = goalId;
     const goal = goals.find(g => g.id === goalId);
@@ -388,7 +332,6 @@ function openDetailModal(goalId) {
     document.getElementById('detailContribution').textContent = `${formatRupiah(goal.contributionAmount)} / ${frequencyText}`;
     document.getElementById('detailCreated').textContent = new Date(goal.createdDate).toLocaleDateString('id-ID');
 
-    // Render transactions
     const transactionsList = document.getElementById('transactionsList');
     if (goal.transactions.length === 0) {
         transactionsList.innerHTML = '<p style="text-align: center; color: #6b7280; padding: 2rem;">Belum ada transaksi</p>';
@@ -435,7 +378,6 @@ function editGoal() {
     selectedFrequency = goal.frequency;
     selectedImageUrl = goal.imageUrl;
 
-    // Set frequency tabs
     document.querySelectorAll('.freq-tab').forEach(tab => {
         tab.classList.remove('active');
         if (tab.dataset.freq === goal.frequency) {
@@ -447,7 +389,6 @@ function editGoal() {
     document.getElementById('addModal').classList.add('active');
 }
 
-// Transaction Modal
 function openTransactionModal(type) {
     currentTransactionType = type;
     document.getElementById('transactionTitle').textContent = type === 'add' ? 'Tambah Tabungan' : 'Kurangi Tabungan';
@@ -488,7 +429,6 @@ function saveTransaction() {
         goals[goalIndex].savedAmount = Math.max(0, goals[goalIndex].savedAmount - amount);
     }
 
-    // Check if goal is completed
     if (goals[goalIndex].savedAmount >= goals[goalIndex].targetAmount) {
         goals[goalIndex].status = 'completed';
         showToast('Selamat! Target tabungan tercapai!');
@@ -501,11 +441,9 @@ function saveTransaction() {
     renderGoals();
     closeTransactionModal();
     
-    // Refresh detail modal
     openDetailModal(currentGoalId);
     
     showToast(currentTransactionType === 'add' ? 'Tabungan berhasil ditambahkan' : 'Tabungan berhasil dikurangi');
 }
 
-// Initialize on page load
 init();

@@ -11,9 +11,24 @@ body {
     min-height: 100vh;
 }
 
-/* Header */
+::-webkit-scrollbar {
+  width: 10px;          
+}
+
+::-webkit-scrollbar-track {
+  background: #f1f1f1;
+}
+
+::-webkit-scrollbar-thumb {
+  background: #522b1d;
+  border-radius: 10px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: #452419;
+}
+
 .header {
-    /* background: #cec8af; */
     background: rgba(206, 200, 175, 0.5);
     border-bottom: 1px solid rgb(206, 200, 175);
     backdrop-filter: blur(12px);
@@ -41,19 +56,8 @@ body {
     gap: 1rem;
 }
 
-.logo {
-    width: 48px;
-    height: 48px;
-    background: linear-gradient(135deg, #10b981 0%, #14b8a6 100%);
-    border-radius: 1rem;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    box-shadow: 0 4px 6px rgba(16, 185, 129, 0.3);
-    color: white;
-}
 
-.logoo img {
+.logo img {
     width: 64px;
     height: 64px;
 }
@@ -66,17 +70,15 @@ body {
 
 .header-text p {
     font-size: 0.875rem;
-    color: #6b7280;
+    color: black;
 }
 
-/* Container */
 .container {
     max-width: 1200px;
     margin: 0 auto;
     padding: 2rem 1.5rem;
 }
 
-/* Stats Grid */
 .stats-grid {
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
@@ -85,15 +87,19 @@ body {
 }
 
 .stat-card {
-    background: url(assets/board.png) no-repeat center/cover;
+    background: linear-gradient(23deg,rgba(92, 46, 32, 1) 44%, rgba(107, 56, 42, 1) 82%);
     border-radius: 1rem;
     padding: 1.5rem;
-    /* box-shadow: 0 4px 6px rgba(0,0,0,0.1); */
+    box-shadow: 0 4px 6px rgba(92, 46, 32, 0.3);
     transition: all 0.3s ease;
+
+    user-select: none;
+    -webkit-user-select: none;
+    -ms-user-select: none;
 }
 
 .stat-card:hover {
-    /* box-shadow: 0 10px 15px rgba(0,0,0,0.15); */
+    box-shadow: 0 10px 15px rgba(92, 46, 32, 0.5);
     transform: translateY(-2px);
 }
 
@@ -105,7 +111,7 @@ body {
 
 .stat-label {
     font-size: 0.875rem;
-    color: #ffe8de;
+    color: white;
     opacity: 0.7;
     margin-bottom: 0.5rem;
 }
@@ -132,7 +138,6 @@ body {
 .stat-icon-teal { background: #C19A6B; color: black; margin-right: .7em;}
 .stat-icon-cyan { background: #C19A6B; color: black; margin-right: .7em;}
 
-/* Tabs */
 .tabs {
     display: flex;
     gap: 0.5rem;
@@ -155,7 +160,7 @@ body {
     font-weight: 500;
     cursor: pointer;
     transition: all 0.2s ease ease-in-out;
-    color: #6b7280;
+    color: black;
 }
 
 .tab:hover {
@@ -167,7 +172,6 @@ body {
     color: white;
 }
 
-/* Goals Grid */
 .goals-grid {
     display: grid;
     grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
@@ -273,7 +277,6 @@ body {
     color: #6b7280;
 }
 
-/* Empty State */
 .empty-state {
     text-align: center;
     padding: 5rem 2rem;
@@ -288,21 +291,20 @@ body {
     align-items: center;
     justify-content: center;
     margin: 0 auto 1.5rem;
-    color: #9ca3af;
+    color: black;
 }
 
 .empty-state h3 {
     font-size: 1.25rem;
-    color: #374151;
+    color: black;
     margin-bottom: 0.5rem;
 }
 
 .empty-state p {
-    color: #6b7280;
+    color: black;
     margin-bottom: 1.5rem;
 }
 
-/* Buttons */
 .btn {
     padding: 0.75rem 1.5rem;
     border: none;
@@ -379,7 +381,6 @@ body {
     color: #111827;
 }
 
-/* Modal */
 .modal {
     display: none;
     position: fixed;
@@ -456,7 +457,6 @@ body {
     flex: 1;
 }
 
-/* Form */
 .form-group {
     margin-bottom: 1.5rem;
 }
@@ -488,8 +488,8 @@ body {
 .form-group input:focus,
 .form-group textarea:focus {
     outline: none;
-    border-color: #10b981;
-    box-shadow: 0 0 0 3px rgba(16, 185, 129, 0.1);
+    border-color: #c29b6b;
+    box-shadow: 0 0 0 3px rgba(230, 226, 174, 0.1);
 }
 
 .form-group textarea {
@@ -497,7 +497,6 @@ body {
     min-height: 80px;
 }
 
-/* Frequency Tabs */
 .frequency-tabs {
     display: grid;
     grid-template-columns: repeat(3, 1fr);
@@ -520,12 +519,11 @@ body {
 }
 
 .freq-tab.active {
-    background: #C19A6B;
+    background: #522b1d;
     color: white;
-    border-color: #C19A6B;
+    border-color: #c29b6b;
 }
 
-/* Image Tabs */
 .image-tabs {
     display: grid;
     grid-template-columns: 1fr 1fr;
@@ -553,12 +551,11 @@ body {
 }
 
 .img-tab.active {
-    background: #d1fae5;
+    background: #522b1d;
     color: white;
-    border-color: #10b981;
+    border-color: #c29b6b;
 }
 
-/* Category Filters */
 .category-filters {
     display: flex;
     gap: 0.5rem;
@@ -581,12 +578,11 @@ body {
 }
 
 .category-btn.active {
-    background: #10b981;
+    background: #522b1d;
     color: white;
-    border-color: #10b981;
+    border-color: #c29b6b;
 }
 
-/* Stock Images Grid */
 .stock-images-grid {
     display: grid;
     grid-template-columns: repeat(3, 1fr);
@@ -606,12 +602,12 @@ body {
 }
 
 .stock-image:hover {
-    border-color: #a7f3d0;
+    border-color: #c29b6b;
 }
 
 .stock-image.selected {
-    border-color: #10b981;
-    box-shadow: 0 0 0 4px rgba(16, 185, 129, 0.2);
+    border-color: #522b1d;
+    box-shadow: 0 0 0 4px rgba(194, 155, 107, 1);
 }
 
 .stock-image img {
@@ -620,7 +616,6 @@ body {
     object-fit: cover;
 }
 
-/* Upload Area */
 .upload-area {
     border: 2px dashed #d1d5db;
     border-radius: 0.75rem;
@@ -631,8 +626,8 @@ body {
 }
 
 .upload-area:hover {
-    border-color: #10b981;
-    background: #f0fdf4;
+    border-color: #c29b6b;
+    background: #fdf1e8;
 }
 
 .upload-area svg {
@@ -681,7 +676,7 @@ body {
     background: #dc2626;
 }
 
-/* Goal Detail */
+
 .detail-image-wrapper {
     position: relative;
     height: 300px;
@@ -846,7 +841,6 @@ body {
 .transaction-amount.add { color: #10b981; }
 .transaction-amount.subtract { color: #f59e0b; }
 
-/* Toast */
 .toast {
     position: fixed;
     bottom: 2rem;
@@ -867,7 +861,6 @@ body {
     opacity: 1;
 }
 
-/* Responsive */
 @media (max-width: 768px) {
     .header-content {
         flex-direction: column;
