@@ -1,18 +1,18 @@
 const mockGoals = [];
 
 const stockImages = [
-    { id: 1, url: '/assets/elektronik/elektronik_handphone-min.jpg', category: 'Elektronik' },
-    { id: 2, url: '/assets/elektronik/elektronik_jam-min.jpg', category: 'Elektronik' },
-    { id: 3, url: '/assets/elektronik/elektronik_laptop-min.jpg', category: 'Elektronik' },
-    { id: 4, url: '/assets/fashion/fashion_baju.jpg', category: 'Fashion' },
-    { id: 5, url: '/assets/fashion/fashion_celana.jpg', category: 'Fashion' },
-    { id: 6, url: '/assets/fashion/fashion_sepatu.jpg', category: 'Fashion' },
-    { id: 7, url: '/assets/kendaraan/kendaraan_bmw.jpg', category: 'Kendaraan' },
-    { id: 8, url: '/assets/kendaraan/kendaraan_corvette.jpg', category: 'Kendaraan' },
-    { id: 9, url: '/assets/properti/properti_rumah1.jpg', category: 'Properti' },
-    { id: 10, url: '/assets/properti/properti_rumah2.jpg', category: 'Properti' },
-    { id: 11, url: '/assets/liburan/liburan_pantai.jpg', category: 'Liburan' },
-    { id: 12, url: '/assets/liburan/liburan_pulau.jpg', category: 'Liburan' }
+    { id: 1, url: 'assets/elektronik/elektronik_handphone-min.jpg', category: 'Elektronik' },
+    { id: 2, url: 'assets/elektronik/elektronik_jam-min.jpg', category: 'Elektronik' },
+    { id: 3, url: 'assets/elektronik/elektronik_laptop-min.jpg', category: 'Elektronik' },
+    { id: 4, url: 'assets/fashion/fashion_baju.jpg', category: 'Fashion' },
+    { id: 5, url: 'assets/fashion/fashion_celana.jpg', category: 'Fashion' },
+    { id: 6, url: 'assets/fashion/fashion_sepatu.jpg', category: 'Fashion' },
+    { id: 7, url: 'assets/kendaraan/kendaraan_bmw.jpg', category: 'Kendaraan' },
+    { id: 8, url: 'assets/kendaraan/kendaraan_corvette.jpg', category: 'Kendaraan' },
+    { id: 9, url: 'assets/properti/properti_rumah1.jpg', category: 'Properti' },
+    { id: 10, url: 'assets/properti/properti_rumah2.jpg', category: 'Properti' },
+    { id: 11, url: 'assets/liburan/liburan_pantai.jpg', category: 'Liburan' },
+    { id: 12, url: 'assets/liburan/liburan_pulau.jpg', category: 'Liburan' }
 ];
 
 let goals = [];
