@@ -1,7 +1,4 @@
-// Mock data
-const mockGoals = [
-    
-];
+const mockGoals = [];
 
 const stockImages = [
     { id: 1, url: 'https://images.unsplash.com/photo-1544244015-0df4b3ffc6b0?w=800', category: 'Elektronik' },
@@ -20,7 +17,7 @@ const stockImages = [
 
 // State
 let goals = [];
-let currentFilter = 'in-progress';
+let currentFilter = 'all';
 let editingGoalId = null;
 let selectedImageUrl = '';
 let selectedFrequency = 'weekly';
@@ -28,13 +25,59 @@ let selectedCategory = 'Elektronik';
 let currentGoalId = null;
 let currentTransactionType = 'add';
 
-// Utility functions
+document.addEventListener("DOMContentLoaded", () => {
+    const card = document.getElementById("welcome-card");
+    const containerCard = document.getElementById("container-welcome");
+    const closeBtn = document.getElementById("close-card");
+
+    const stored = localStorage.getItem('siCelengGoals');
+    let goals = [];
+
+    if (stored) {
+        try {
+            goals = JSON.parse(stored);
+        } catch (e) {
+            goals = [];
+        }
+    }
+
+    const shouldShowCard = !stored || goals.length === 0;
+
+    if (shouldShowCard) {
+        card.classList.remove("hidden");
+        containerCard.classList.remove("hidden");
+        document.body.classList.add("no-scroll");
+    }
+
+    closeBtn.addEventListener("click", () => {
+        card.classList.add("hidden");
+        containerCard.classList.add("hidden");
+        document.body.classList.remove("no-scroll");
+
+
+        if (!stored) {
+            localStorage.setItem('siCelengGoals', JSON.stringify([]));
+        }
+    });
+});
+
 function formatRupiah(amount) {
     return new Intl.NumberFormat('id-ID', {
         style: 'currency',
         currency: 'IDR',
         minimumFractionDigits: 0
     }).format(amount);
+}
+
+function formatNumber(amount) {
+    if (amount === null || amount === undefined || amount === '') return '';
+    return new Intl.NumberFormat('id-ID', { maximumFractionDigits: 0 }).format(Number(amount));
+}
+
+function parseNumberFromFormatted(str) {
+    if (!str && str !== 0) return 0;
+    const digits = String(str).replace(/[^0-9]/g, '');
+    return digits === '' ? 0 : Number(digits);
 }
 
 function calculateProgress(saved, target) {
@@ -44,10 +87,10 @@ function calculateProgress(saved, target) {
 function estimateCompletion(saved, target, contribution, frequency) {
     const remaining = target - saved;
     if (remaining <= 0) return '0';
-    
+
     const periodsNeeded = Math.ceil(remaining / contribution);
-    
-    switch(frequency) {
+
+    switch (frequency) {
         case 'daily':
             return `${periodsNeeded} hari`;
         case 'weekly':
@@ -80,7 +123,7 @@ function saveGoalsToStorage(goals) {
 function init() {
     goals = getGoalsFromStorage();
     updateStats();
-    renderGoals();
+    setFilter(currentFilter);
     renderStockImages();
 }
 
@@ -106,7 +149,7 @@ function setFilter(filter) {
 }
 
 function renderGoals() {
-    const filteredGoals = goals.filter(goal => 
+    const filteredGoals = goals.filter(goal =>
         currentFilter === 'all' ? true : goal.status === currentFilter
     );
 
@@ -121,7 +164,7 @@ function renderGoals() {
         goalsGrid.innerHTML = filteredGoals.map(goal => {
             const progress = calculateProgress(goal.savedAmount, goal.targetAmount);
             const frequencyText = goal.frequency === 'daily' ? 'hari' : goal.frequency === 'weekly' ? 'minggu' : 'bulan';
-            
+
             return `
                 <div class="goal-card" onclick="openDetailModal('${goal.id}')">
                     <div class="goal-image-wrapper">
@@ -161,19 +204,21 @@ function openAddModal() {
     document.getElementById('contributionAmount').value = '';
     selectedFrequency = 'weekly';
     selectedImageUrl = '';
-    
+
     document.querySelectorAll('.freq-tab').forEach(tab => {
         tab.classList.remove('active');
         if (tab.dataset.freq === 'weekly') {
             tab.classList.add('active');
         }
     });
-    
+
     document.querySelectorAll('.stock-image').forEach(img => {
         img.classList.remove('selected');
     });
-    
+
     document.getElementById('uploadPreview').style.display = 'none';
+    const uploadArea = document.querySelector('#uploadTab .upload-area');
+    if (uploadArea) uploadArea.style.display = 'block';
     document.getElementById('addModal').classList.add('active');
 }
 
@@ -218,7 +263,7 @@ function setCategory(category) {
 function renderStockImages() {
     const filteredImages = stockImages.filter(img => img.category === selectedCategory);
     const grid = document.getElementById('stockImages');
-    
+
     grid.innerHTML = filteredImages.map(img => `
         <div class="stock-image ${selectedImageUrl === img.url ? 'selected' : ''}" onclick="selectStockImage('${img.url}')">
             <img src="${img.url}" alt="Stock">
@@ -241,7 +286,10 @@ function handleImageUpload(event) {
         reader.onload = (e) => {
             selectedImageUrl = e.target.result;
             document.getElementById('previewImage').src = e.target.result;
+            // Show preview and hide the upload area
             document.getElementById('uploadPreview').style.display = 'block';
+            const uploadArea = document.querySelector('#uploadTab .upload-area');
+            if (uploadArea) uploadArea.style.display = 'none';
         };
         reader.readAsDataURL(file);
     }
@@ -250,13 +298,15 @@ function handleImageUpload(event) {
 function removeUploadedImage() {
     selectedImageUrl = '';
     document.getElementById('uploadPreview').style.display = 'none';
+    const uploadArea = document.querySelector('#uploadTab .upload-area');
+    if (uploadArea) uploadArea.style.display = 'block';
     document.getElementById('imageUpload').value = '';
 }
 
 function saveGoal() {
     const name = document.getElementById('goalName').value.trim();
-    const targetAmount = parseFloat(document.getElementById('targetAmount').value);
-    const contributionAmount = parseFloat(document.getElementById('contributionAmount').value);
+    const targetAmount = parseNumberFromFormatted(document.getElementById('targetAmount').value);
+    const contributionAmount = parseNumberFromFormatted(document.getElementById('contributionAmount').value);
 
     if (!name) {
         showToast('Nama target harus diisi');
@@ -341,10 +391,10 @@ function openDetailModal(goalId) {
                 <div class="transaction-left">
                     <div class="transaction-icon ${t.type}">
                         <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                            ${t.type === 'add' 
-                                ? '<line x1="12" y1="5" x2="12" y2="19"></line><line x1="5" y1="12" x2="19" y2="12"></line>'
-                                : '<line x1="5" y1="12" x2="19" y2="12"></line>'
-                            }
+                            ${t.type === 'add'
+                ? '<line x1="12" y1="5" x2="12" y2="19"></line><line x1="5" y1="12" x2="19" y2="12"></line>'
+                : '<line x1="5" y1="12" x2="19" y2="12"></line>'
+            }
                         </svg>
                     </div>
                     <div class="transaction-info">
@@ -366,6 +416,26 @@ function closeDetailModal() {
     document.getElementById('detailModal').classList.remove('active');
 }
 
+function confirmDeleteGoal() {
+    if (!currentGoalId) return;
+    const confirmed = window.confirm('Yakin ingin menghapus target ini? Semua data transaksi akan ikut terhapus.');
+    if (confirmed) {
+        deleteGoal(currentGoalId);
+    }
+}
+
+function deleteGoal(goalId) {
+    const idx = goals.findIndex(g => g.id === goalId);
+    if (idx === -1) return;
+    // remove goal
+    goals.splice(idx, 1);
+    saveGoalsToStorage(goals);
+    updateStats();
+    renderGoals();
+    closeDetailModal();
+    showToast('Target berhasil dihapus');
+}
+
 function editGoal() {
     const goal = goals.find(g => g.id === currentGoalId);
     if (!goal) return;
@@ -373,10 +443,23 @@ function editGoal() {
     editingGoalId = goal.id;
     document.getElementById('modalTitle').textContent = 'Edit Target';
     document.getElementById('goalName').value = goal.name;
-    document.getElementById('targetAmount').value = goal.targetAmount;
-    document.getElementById('contributionAmount').value = goal.contributionAmount;
+    document.getElementById('targetAmount').value = formatNumber(goal.targetAmount);
+    document.getElementById('contributionAmount').value = formatNumber(goal.contributionAmount);
     selectedFrequency = goal.frequency;
     selectedImageUrl = goal.imageUrl;
+
+    const uploadPreview = document.getElementById('uploadPreview');
+    const uploadArea = document.querySelector('#uploadTab .upload-area');
+    if (selectedImageUrl && selectedImageUrl.startsWith && selectedImageUrl.startsWith('data:')) {
+        if (uploadPreview) {
+            document.getElementById('previewImage').src = selectedImageUrl;
+            uploadPreview.style.display = 'block';
+        }
+        if (uploadArea) uploadArea.style.display = 'none';
+    } else {
+        if (uploadPreview) uploadPreview.style.display = 'none';
+        if (uploadArea) uploadArea.style.display = 'block';
+    }
 
     document.querySelectorAll('.freq-tab').forEach(tab => {
         tab.classList.remove('active');
@@ -402,7 +485,7 @@ function closeTransactionModal() {
 }
 
 function saveTransaction() {
-    const amount = parseFloat(document.getElementById('transactionAmount').value);
+    const amount = parseNumberFromFormatted(document.getElementById('transactionAmount').value);
     const description = document.getElementById('transactionDescription').value.trim();
 
     if (!amount || amount <= 0) {
@@ -422,7 +505,7 @@ function saveTransaction() {
     };
 
     goals[goalIndex].transactions.push(newTransaction);
-    
+
     if (currentTransactionType === 'add') {
         goals[goalIndex].savedAmount += amount;
     } else {
@@ -440,10 +523,49 @@ function saveTransaction() {
     updateStats();
     renderGoals();
     closeTransactionModal();
-    
+
     openDetailModal(currentGoalId);
-    
+
     showToast(currentTransactionType === 'add' ? 'Tabungan berhasil ditambahkan' : 'Tabungan berhasil dikurangi');
 }
+
+document.addEventListener('DOMContentLoaded', () => {
+    const targetInput = document.getElementById('targetAmount');
+    const contribInput = document.getElementById('contributionAmount');
+    const transactionInput = document.getElementById('transactionAmount');
+
+    if (targetInput) {
+        targetInput.addEventListener('input', (e) => {
+            const digits = e.target.value.replace(/[^0-9]/g, '');
+            e.target.value = digits === '' ? '' : formatNumber(digits);
+        });
+        targetInput.addEventListener('blur', (e) => {
+            const digits = e.target.value.replace(/[^0-9]/g, '');
+            e.target.value = digits === '' ? '' : formatNumber(digits);
+        });
+    }
+
+    if (contribInput) {
+        contribInput.addEventListener('input', (e) => {
+            const digits = e.target.value.replace(/[^0-9]/g, '');
+            e.target.value = digits === '' ? '' : formatNumber(digits);
+        });
+        contribInput.addEventListener('blur', (e) => {
+            const digits = e.target.value.replace(/[^0-9]/g, '');
+            e.target.value = digits === '' ? '' : formatNumber(digits);
+        });
+    }
+
+    if (transactionInput) {
+        transactionInput.addEventListener('input', (e) => {
+            const digits = e.target.value.replace(/[^0-9]/g, '');
+            e.target.value = digits === '' ? '' : formatNumber(digits);
+        });
+        transactionInput.addEventListener('blur', (e) => {
+            const digits = e.target.value.replace(/[^0-9]/g, '');
+            e.target.value = digits === '' ? '' : formatNumber(digits);
+        });
+    }
+});
 
 init();
