@@ -39,6 +39,14 @@ body {
     z-index: 100;
     margin: 1rem 1rem 0 1rem;
     border-radius: 15px;
+    max-width: 1400px;
+}
+
+@media (min-width: 1600px) {
+    .header {
+        margin: auto;
+    }
+    
 }
 
 .header-content {
@@ -96,6 +104,7 @@ body {
     user-select: none;
     -webkit-user-select: none;
     -ms-user-select: none;
+    overflow: hidden;
 }
 
 .stat-card:hover {
@@ -775,6 +784,7 @@ body {
     background: #f9fafb;
     padding: 1.25rem;
     border-radius: 0.75rem;
+    overflow: hidden;
 }
 
 .detail-stat-label {
@@ -967,6 +977,10 @@ body {
     opacity: 1;
     visibility: visible;
     transition: all 0.5s ease-in-out;
+
+    user-select: none;
+    -webkit-user-select: none;
+    -ms-user-select: none;
 }
 
 .card div img {
@@ -993,7 +1007,6 @@ body {
     width: 270px;
     height: 270px;
 }
-
 
 .card div:first-child {
     display: flex;
@@ -1032,7 +1045,6 @@ body {
     height: 100vh;
 }
 
-
 #close-card {
     background: #522b1d;
     color: white;
@@ -1048,4 +1060,10 @@ body {
     background: #452419;
     box-shadow: 0 6px 8px rgba(82, 43, 29, 0.4);
     transform: translateY(-1px);
+    transition: all 0.3s ease-in-out;
+}
+
+#welcome-card img:hover {
+    transform: scale(1.1);
+    transition: all 0.3s ease-in-out;
 }

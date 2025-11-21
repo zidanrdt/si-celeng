@@ -1,21 +1,20 @@
 const mockGoals = [];
 
 const stockImages = [
-    { id: 1, url: 'https://images.unsplash.com/photo-1544244015-0df4b3ffc6b0?w=800', category: 'Elektronik' },
-    { id: 2, url: 'https://images.unsplash.com/photo-1603302576837-37561b2e2302?w=800', category: 'Elektronik' },
-    { id: 3, url: 'https://images.unsplash.com/photo-1511707171634-5f897ff02aa9?w=800', category: 'Elektronik' },
-    { id: 4, url: 'https://images.unsplash.com/photo-1523275335684-37898b6baf30?w=800', category: 'Fashion' },
-    { id: 5, url: 'https://images.unsplash.com/photo-1606107557195-0e29a4b5b4aa?w=800', category: 'Fashion' },
-    { id: 6, url: 'https://images.unsplash.com/photo-1549298916-b41d501d3772?w=800', category: 'Fashion' },
-    { id: 7, url: 'https://images.unsplash.com/photo-1503376780353-7e6692767b70?w=800', category: 'Kendaraan' },
-    { id: 8, url: 'https://images.unsplash.com/photo-1558981852-426c6c22a060?w=800', category: 'Kendaraan' },
-    { id: 9, url: 'https://images.unsplash.com/photo-1570129477492-45c003edd2be?w=800', category: 'Properti' },
-    { id: 10, url: 'https://images.unsplash.com/photo-1560518883-ce09059eeffa?w=800', category: 'Properti' },
-    { id: 11, url: 'https://images.unsplash.com/photo-1436491865332-7a61a109cc05?w=800', category: 'Liburan' },
-    { id: 12, url: 'https://images.unsplash.com/photo-1507525428034-b723cf961d3e?w=800', category: 'Liburan' }
+    { id: 1, url: '/assets/elektronik/elektronik_handphone-min.jpg', category: 'Elektronik' },
+    { id: 2, url: '/assets/elektronik/elektronik_jam-min.jpg', category: 'Elektronik' },
+    { id: 3, url: '/assets/elektronik/elektronik_laptop-min.jpg', category: 'Elektronik' },
+    { id: 4, url: '/assets/fashion/fashion_baju.jpg', category: 'Fashion' },
+    { id: 5, url: '/assets/fashion/fashion_celana.jpg', category: 'Fashion' },
+    { id: 6, url: '/assets/fashion/fashion_sepatu.jpg', category: 'Fashion' },
+    { id: 7, url: '/assets/kendaraan/kendaraan_bmw.jpg', category: 'Kendaraan' },
+    { id: 8, url: '/assets/kendaraan/kendaraan_corvette.jpg', category: 'Kendaraan' },
+    { id: 9, url: '/assets/properti/properti_rumah1.jpg', category: 'Properti' },
+    { id: 10, url: '/assets/properti/properti_rumah2.jpg', category: 'Properti' },
+    { id: 11, url: '/assets/liburan/liburan_pantai.jpg', category: 'Liburan' },
+    { id: 12, url: '/assets/liburan/liburan_pulau.jpg', category: 'Liburan' }
 ];
 
-// State
 let goals = [];
 let currentFilter = 'all';
 let editingGoalId = null;
@@ -286,7 +285,6 @@ function handleImageUpload(event) {
         reader.onload = (e) => {
             selectedImageUrl = e.target.result;
             document.getElementById('previewImage').src = e.target.result;
-            // Show preview and hide the upload area
             document.getElementById('uploadPreview').style.display = 'block';
             const uploadArea = document.querySelector('#uploadTab .upload-area');
             if (uploadArea) uploadArea.style.display = 'none';
@@ -427,7 +425,6 @@ function confirmDeleteGoal() {
 function deleteGoal(goalId) {
     const idx = goals.findIndex(g => g.id === goalId);
     if (idx === -1) return;
-    // remove goal
     goals.splice(idx, 1);
     saveGoalsToStorage(goals);
     updateStats();
